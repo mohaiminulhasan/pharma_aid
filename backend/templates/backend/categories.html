@@ -1,0 +1,24 @@
+{% extends "admin_base.html" %}
+
+{% block main %}
+	<a href="{% url 'backend:category-create-view' %}" class="btn btn-danger btn-sm">Add New Category</a>
+	<br/>
+	<br/>
+
+	<ul>
+	{% for category in categories %}
+		<li>
+			<a href="{% url 'backend:category-items-list-view' category.slug %}">{{ category }}</a>
+			<ul>
+			{% for sub in category.subcategory_set.all %}
+				<li>
+					<a href="{% url 'backend:sub-category-items-list-view' category.slug sub.slug %}">{{ sub }}</a>
+				</li>
+				{% endfor %}
+			</ul>
+		</li>
+		{% empty %}
+		No categories added yet!
+		{% endfor %}
+	</ul>
+{% endblock %}

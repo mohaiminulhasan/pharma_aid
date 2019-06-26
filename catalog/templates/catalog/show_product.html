@@ -1,0 +1,44 @@
+{% extends "skeleton.html" %}
+
+{% block title-suffix %}{{ product }}{% endblock %}
+
+{% block sidebar %}
+	{% include "tags/category_list.html" %}
+{% endblock %}
+
+{% block breadcrumb-heading %}<a href="{% url 'catalog:category' product.category.slug %}">{{ product.category }}</a></li><li class="active">{{ product }}{% endblock %}
+
+{% block heading %}
+	Product Details
+{% endblock %}
+
+{% block items %}
+	<h4>{{ product.name }}</h4>
+
+	<div class="row">
+		<div class="col-sm-4">
+			{% if product.image %}
+				<img src="/media/{{ product.image }}" width="100%"/>
+				{% endif %}
+		</div>
+
+        <div class="col-sm-6">
+			<a href="#" class="btn btn-primary add-to-bag"  data-slug="{{ product.slug }}">Add to Bag</a>
+			<a href="#" class="btn btn-primary add-to-monthly-btn" data-slug="{{ product.slug }}">Add to Monthly Order</a>
+		</div>
+	</div>
+
+    <div class="row">
+		<div class="col-sm-6">
+			<p>{{ product.name }}</p>
+			<p>{{ product.generic }}</p>
+			<p>Tk. {{ product.price }}</p>
+			<p>{{ product.manufacturer }}</p>
+			<p>{{ product.dosage }}</p>
+		</div>
+	</div>
+
+	<div class="alert alert-info" id="added_msg">
+		<b>Added!</b>
+	</div>
+{% endblock %}

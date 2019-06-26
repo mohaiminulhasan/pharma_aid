@@ -1,0 +1,29 @@
+{% extends "admin_base.html" %}
+
+{% block main %}
+    <table class="table">
+        <tr>
+            <th>ORDERS</th>
+            <th>DATE</th>
+            <th>STATUS</th>
+            <th>PAYMENT MODE</th>
+            <th>BKASH TRX ID</th>
+            <th>STATUS</th>
+            <th>NOTES</th>
+        </tr>
+	{% for order in orders %}
+        <tr>
+            <td><a href="{% url 'backend:order-detail-view' order.id %}">{{ order }}</a> <br/></td>
+            <td>{{ order.created }}</td>
+            <td>{{ order.get_status_display }}</td>
+            <td>{{ order.get_payment_method_display }}</td>
+            <td>{{ order.trx_id }}</td>
+            <td>{{ order.get_status_display }}</td>
+            <td>{{ order.note }}</td>
+        </tr>
+		{% empty %}
+		No orders yet!
+		{% endfor %}
+    </table>
+{% endblock %}
+

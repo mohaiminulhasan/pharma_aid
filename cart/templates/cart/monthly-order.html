@@ -1,0 +1,53 @@
+{% extends "skeleton.html" %}
+
+{% block title-suffix %}Monthly Order{% endblock %}
+
+{% block sidebar %}
+	{% include "tags/category_list.html" %}
+{% endblock %}
+
+{% block breadcrumb-heading %}Monthly Order{% endblock %}
+
+{% block heading %}
+	Monthly Order
+{% endblock %}
+
+{% block items %}
+	<h4>Monthly Order</h4>
+
+	<table class="table">
+
+	{% for obj in objs %}
+		<tr id="monthly-item-{{ obj.id }}">
+			<td>{{ obj.name }}</td>
+			<td>{{ obj.price }}</td>
+			<td style="width: 5%; font-size: 1.2em;">
+				<a href="{% url 'cart:remove-from-monthly' obj.product.slug %}" class="remove-from-monthly" data-slug="{{ obj.product.slug }}"><i class="fa fa-caret-left"></i></a>
+			</td>
+			<td style="width: 5%;">
+				<span id="{{ obj.id }}_quantity">{{ obj.quantity }}</span>
+			</td>
+			<td style="width: 5%; font-size: 1.2em;">
+				<a href="{% url 'cart:add-to-monthly' obj.product.slug %}" class="add-to-monthly" data-slug="{{ obj.product.slug }}"><i class="fa fa-caret-right"></i></a>
+			</td>
+			<td style="width: 10%;"><span id="{{ obj.id }}_total">{{ obj.total }}</span></td>
+			<td>
+				<a href="{% url 'cart:delete-from-monthly' obj.product.slug %}" class="delete-from-monthly" data-slug="{{ obj.product.slug }}" data-id="{{ obj.id }}"><i class="fa fa-trash"></i></a>
+			</td>
+		</tr>
+		{% empty %}
+			<h5>No monthly order set yet!</h5>
+		{% endfor %}
+		<tr>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td><span id="all_total">{{ total }}</span></td>
+			<td></td>
+		</tr>
+	</table>
+
+    <a href="{% url 'cart:transfer-order' %}" class="btn btn-primary" id="order_now">Order Now</a>
+{% endblock %}
